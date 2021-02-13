@@ -47,7 +47,7 @@ public class ArrayDeque<T> {
         // find the actual start and end of the deque
         int first = getNextIndex(nextFirst);
         int last = getPrevIndex(nextLast);
-        // regardless first/last relative position, print from first till earlier of last or end of array
+        // print from first till earlier of last or end of array
         for (int i = first; i < Math.min(last, array.length - 1); i++) {
             System.out.print(array[i] + " ");
         }
@@ -142,7 +142,7 @@ public class ArrayDeque<T> {
         return index + 1;
     }
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
         deque.addLast(8);
         deque.addLast(7);
