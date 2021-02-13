@@ -44,14 +44,13 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        if (isEmpty()) {
-            return;
-        }
-        // find the first index of the deque;
-        int first = getNextIndex(nextFirst);
-        // print from first and wrap around when reaches end of array
-        for (int i = first; i < first + size; i++) {
-            System.out.print(array[i % array.length] + " ");
+        if (!isEmpty()) {
+            // find the first index of the deque;
+            int first = getNextIndex(nextFirst);
+            // print from first and wrap around when reaches end of array
+            for (int i = first; i < first + size; i++) {
+                System.out.print(array[i % array.length] + " ");
+            }
         }
         System.out.println();
     }
@@ -62,9 +61,8 @@ public class ArrayDeque<T> {
         }
         int first = getNextIndex(nextFirst);
         T removed = remove(first);
-        if (getUsage() >= MIN_USAGE || isSmallArray()) {
-            nextFirst = first;
-        } else {
+        nextFirst = first;
+        if (getUsage() < MIN_USAGE && !isSmallArray()) {
             adjustCapacity(array.length / 2);
         }
         return removed;
@@ -76,9 +74,8 @@ public class ArrayDeque<T> {
         }
         int last = getPrevIndex(nextLast);
         T removed = remove(last);
-        if (getUsage() >= MIN_USAGE || isSmallArray()) {
-            nextLast = last;
-        } else {
+        nextLast = last;
+        if (getUsage() < MIN_USAGE && !isSmallArray())  {
             adjustCapacity(array.length / 2);
         }
         return removed;
@@ -148,7 +145,6 @@ public class ArrayDeque<T> {
 
     public static void main(String[] args) {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
-        Integer removed;
         deque.addFirst(9);
         deque.addFirst(8);
         deque.addFirst(7);
@@ -167,42 +163,34 @@ public class ArrayDeque<T> {
         deque.addFirst(3);
         deque.addFirst(2);
         deque.addFirst(1);
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        removed = deque.removeFirst();
-        deque.addFirst(9);
-        deque.addFirst(8);
-        deque.addFirst(7);
-        deque.addFirst(6);
-        deque.addFirst(5);
-        deque.addFirst(4);
-        deque.addFirst(3);
-        deque.addFirst(2);
-        deque.addFirst(1);
-        deque.addFirst(9);
-        deque.addFirst(8);
-        deque.addFirst(7);
-        deque.addFirst(6);
-        deque.addFirst(5);
-        deque.addFirst(4);
-        deque.addFirst(3);
-        deque.addFirst(2);
-        deque.addFirst(1);
+        System.out.print("removed: " + deque.removeFirst());
+        System.out.print(", " + deque.removeFirst());
+        System.out.print(", " + deque.removeFirst());
+        System.out.print(", " + deque.removeFirst());
+        System.out.print(", " + deque.removeFirst());
+        System.out.print(", " + deque.removeFirst());
+        System.out.println();
+
         deque.printDeque();
+
+        ArrayDeque<Integer> deque1 = new ArrayDeque<>();
+        deque1.addFirst(9);
+        deque1.addFirst(8);
+        deque1.addFirst(7);
+        deque1.addFirst(6);
+        deque1.addFirst(5);
+        deque1.addFirst(4);
+        deque1.addFirst(3);
+        deque1.addFirst(2);
+        deque1.addFirst(1);
+        System.out.print("removed: " + deque1.removeFirst());
+        System.out.print(", " + deque1.removeFirst());
+        System.out.print(", " + deque1.removeFirst());
+        System.out.print(", " + deque1.removeFirst());
+        System.out.print(", " + deque1.removeFirst());
+        System.out.print(", " + deque1.removeFirst());
+        System.out.println();
+
+        deque1.printDeque();
     }
 }
