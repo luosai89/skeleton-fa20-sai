@@ -143,7 +143,7 @@ public class ArrayDeque<T> {
         return array.length <= SMALL_ARRAY_MAX_LEN;
     }
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
         deque.addFirst(9);
         deque.addFirst(8);
