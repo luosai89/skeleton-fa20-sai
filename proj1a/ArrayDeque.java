@@ -4,10 +4,10 @@ public class ArrayDeque<T> {
     private T[] array;
     private int size;
     private final double MIN_USAGE = 0.25;
-    private final int MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT = 100;
+    private final int SMALL_ARRAY_MAX_LEN = 8;
 
     public ArrayDeque() {
-        array = (T[]) new Object[8];
+        array = (T[]) new Object[SMALL_ARRAY_MAX_LEN];
         size = 0;
         nextFirst = 0;
         nextLast = nextFirst + 1;
@@ -44,18 +44,14 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        // find the actual start and end of the deque
-        int first = getNextIndex(nextFirst);
-        int last = getPrevIndex(nextLast);
-        // print from first till earlier of last or end of array
-        for (int i = first; i < Math.min(last, array.length - 1); i++) {
-            System.out.print(array[i] + " ");
+        if (isEmpty()) {
+            return;
         }
-        // if last is before first, array is split and print second half from start of array
-        if (last < first) {
-            for (int i = 0; i <= last; i++) {
-                System.out.print(array[i] + " ");
-            }
+        // find the first index of the deque;
+        int first = getNextIndex(nextFirst);
+        // print from first and wrap around when reaches end of array
+        for (int i = first; i < first + size; i++) {
+            System.out.print(array[i % array.length] + " ");
         }
         System.out.println();
     }
@@ -66,7 +62,7 @@ public class ArrayDeque<T> {
         }
         int first = getNextIndex(nextFirst);
         T removed = remove(first);
-        if (size * 1.0 / array.length >= MIN_USAGE || array.length <= MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT) {
+        if (getUsage() >= MIN_USAGE || isSmallArray()) {
             nextFirst = first;
         } else {
             adjustCapacity(array.length / 2);
@@ -80,7 +76,7 @@ public class ArrayDeque<T> {
         }
         int last = getPrevIndex(nextLast);
         T removed = remove(last);
-        if (size * 1.0 / array.length >= MIN_USAGE || array.length <= MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT) {
+        if (getUsage() >= MIN_USAGE || isSmallArray()) {
             nextLast = last;
         } else {
             adjustCapacity(array.length / 2);
@@ -142,16 +138,71 @@ public class ArrayDeque<T> {
         return index + 1;
     }
 
+    private double getUsage() {
+        return size * 1.0 / array.length;
+    }
+
+    private boolean isSmallArray() {
+        return array.length <= SMALL_ARRAY_MAX_LEN;
+    }
+
     public static void main(String[] args) {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
         Integer removed;
+        deque.addFirst(9);
+        deque.addFirst(8);
+        deque.addFirst(7);
+        deque.addFirst(6);
+        deque.addFirst(5);
+        deque.addFirst(4);
+        deque.addFirst(3);
+        deque.addFirst(2);
+        deque.addFirst(1);
+        deque.addFirst(9);
+        deque.addFirst(8);
+        deque.addFirst(7);
+        deque.addFirst(6);
+        deque.addFirst(5);
+        deque.addFirst(4);
+        deque.addFirst(3);
+        deque.addFirst(2);
+        deque.addFirst(1);
         removed = deque.removeFirst();
-        deque.addFirst(23);
-        deque.addFirst(15);
-        removed = deque.removeLast();
-        removed = deque.removeLast();
-        System.out.println(removed);
-        System.out.println(deque.isEmpty());
-
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        removed = deque.removeFirst();
+        deque.addFirst(9);
+        deque.addFirst(8);
+        deque.addFirst(7);
+        deque.addFirst(6);
+        deque.addFirst(5);
+        deque.addFirst(4);
+        deque.addFirst(3);
+        deque.addFirst(2);
+        deque.addFirst(1);
+        deque.addFirst(9);
+        deque.addFirst(8);
+        deque.addFirst(7);
+        deque.addFirst(6);
+        deque.addFirst(5);
+        deque.addFirst(4);
+        deque.addFirst(3);
+        deque.addFirst(2);
+        deque.addFirst(1);
+        deque.printDeque();
     }
 }

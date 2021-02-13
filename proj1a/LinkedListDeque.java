@@ -116,7 +116,7 @@ public class LinkedListDeque<T> {
         return newDeque.getRecursive(index);
     }
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
         deque.addLast(0);
         deque.addLast(1);
