@@ -4,29 +4,34 @@ public class ArrayDeque<T> {
     private T[] array;
     private int size;
     private final double MIN_USAGE = 0.25;
+    private final int MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT = 100;
 
     public ArrayDeque() {
         array = (T[]) new Object[8];
         size = 0;
-        nextLast = 0;
         nextFirst = 0;
+        nextLast = nextFirst + 1;
     }
 
     public void addFirst(T item) {
+        // if the array is already full, double capacity which resets nextLast and nextFirst
         if (size == array.length) {
             adjustCapacity(size * 2);
         }
+        // add item to index nextFirst and update size and nextFirst
         array[nextFirst] = item;
-        nextFirst = nextFirst == 0 ? array.length - 1 : nextFirst - 1;
+        nextFirst = getPrevIndex(nextFirst);
         size++;
     }
 
     public void addLast(T item) {
+        // if the array is already full, double capacity which resets nextLast and nextFirst
         if (size == array.length) {
             adjustCapacity(size * 2);
         }
+        // add item to index nextLast and update size and nextLast
         array[nextLast] = item;
-        nextLast = nextLast == array.length - 1 ? 0 : nextLast + 1;
+        nextLast = getNextIndex(nextLast);
         size++;
     }
 
@@ -39,11 +44,14 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        int first = getFirstIndex();
-        int last = getLastIndex();
+        // find the actual start and end of the deque
+        int first = getNextIndex(nextFirst);
+        int last = getPrevIndex(nextLast);
+        // regardless first/last relative position, print from first till earlier of last or end of array
         for (int i = first; i < Math.min(last, array.length - 1); i++) {
             System.out.print(array[i] + " ");
         }
+        // if last is before first, array is split and print second half from start of array
         if (last < first) {
             for (int i = 0; i <= last; i++) {
                 System.out.print(array[i] + " ");
@@ -56,10 +64,12 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        int first = getFirstIndex();
+        int first = getNextIndex(nextFirst);
         T removed = remove(first);
         if (size * 1.0 / array.length >= MIN_USAGE) {
             nextFirst = first;
+        } else if (array.length > MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT) {
+            adjustCapacity(array.length / 2);
         }
         return removed;
     }
@@ -68,10 +78,12 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        int last = getLastIndex();
+        int last = getPrevIndex(nextLast);
         T removed = remove(last);
         if (size * 1.0 / array.length >= MIN_USAGE) {
             nextLast = last;
+        } else if (array.length > MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT) {
+            adjustCapacity(array.length / 2);
         }
         return removed;
     }
@@ -82,13 +94,12 @@ public class ArrayDeque<T> {
     }
 
     private void adjustCapacity(int capacity) {
-        T[] temp = (T[]) new Object[capacity];
-        int first = getFirstIndex();
-        int last = getLastIndex();
-        // when array is empty, do nothing
-        if (first == last || size == 0) {
+        if (isEmpty()) {
             return;
         }
+        T[] temp = (T[]) new Object[capacity];
+        int first = getNextIndex(nextFirst);
+        int last = getPrevIndex(nextLast);
         // copy from first to min(last, end of array)
         System.arraycopy(array, first, temp, 0,
                          Math.min(size, array.length - first));
@@ -114,9 +125,45 @@ public class ArrayDeque<T> {
         T removed = array[index];
         array[index] = null;
         size--;
-        if (size * 1.0 / array.length < MIN_USAGE) {
-            adjustCapacity(array.length / 2);
-        }
         return removed;
+    }
+
+    private int getPrevIndex(int index) {
+        if (index == 0) {
+            return array.length - 1;
+        }
+        return index - 1;
+    }
+
+    private int getNextIndex(int index) {
+        if (index == array.length - 1) {
+            return 0;
+        }
+        return index + 1;
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.addLast(8);
+        deque.addLast(7);
+        deque.addLast(6);
+        deque.addLast(5);
+        deque.addLast(4);
+        deque.addLast(3);
+        deque.addLast(2);
+        deque.addLast(1);
+        deque.addLast(0);
+        Integer firstRemoved = deque.removeFirst();
+        Integer lastRemoved = deque.removeLast();
+        if (firstRemoved == null) {
+            System.out.print("null ");
+        } else {
+            System.out.print(firstRemoved);
+        }
+        if (lastRemoved == null) {
+            System.out.print("null ");
+        } else {
+            System.out.print(lastRemoved);
+        }
     }
 }
