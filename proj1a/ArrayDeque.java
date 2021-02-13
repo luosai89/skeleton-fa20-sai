@@ -66,9 +66,9 @@ public class ArrayDeque<T> {
         }
         int first = getNextIndex(nextFirst);
         T removed = remove(first);
-        if (size * 1.0 / array.length >= MIN_USAGE) {
+        if (size * 1.0 / array.length >= MIN_USAGE || array.length <= MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT) {
             nextFirst = first;
-        } else if (array.length > MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT) {
+        } else {
             adjustCapacity(array.length / 2);
         }
         return removed;
@@ -80,9 +80,9 @@ public class ArrayDeque<T> {
         }
         int last = getPrevIndex(nextLast);
         T removed = remove(last);
-        if (size * 1.0 / array.length >= MIN_USAGE) {
+        if (size * 1.0 / array.length >= MIN_USAGE || array.length <= MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT) {
             nextLast = last;
-        } else if (array.length > MAX_ARRAY_LENGTH_TO_AVOID_USAGE_REQUIREMENT) {
+        } else {
             adjustCapacity(array.length / 2);
         }
         return removed;
@@ -142,28 +142,16 @@ public class ArrayDeque<T> {
         return index + 1;
     }
 
-    private static void main(String[] args) {
+    public static void main(String[] args) {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
-        deque.addLast(8);
-        deque.addLast(7);
-        deque.addLast(6);
-        deque.addLast(5);
-        deque.addLast(4);
-        deque.addLast(3);
-        deque.addLast(2);
-        deque.addLast(1);
-        deque.addLast(0);
-        Integer firstRemoved = deque.removeFirst();
-        Integer lastRemoved = deque.removeLast();
-        if (firstRemoved == null) {
-            System.out.print("null ");
-        } else {
-            System.out.print(firstRemoved);
-        }
-        if (lastRemoved == null) {
-            System.out.print("null ");
-        } else {
-            System.out.print(lastRemoved);
-        }
+        Integer removed;
+        removed = deque.removeFirst();
+        deque.addFirst(23);
+        deque.addFirst(15);
+        removed = deque.removeLast();
+        removed = deque.removeLast();
+        System.out.println(removed);
+        System.out.println(deque.isEmpty());
+
     }
 }
