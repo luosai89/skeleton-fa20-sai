@@ -15,4 +15,22 @@ public class TestPalindrome {
         }
         assertEquals("persiflage", actual);
     }
+
+    @Test
+    public void testIsPalindrome() {
+        // Any word of length 1 or 0 is a palindrome
+        String test1 = "";
+        String test2 = "a";
+        // If the argument word is null, the method should return false.
+        String test3 = null;
+        // A palindrome is defined as a word that is the same whether it is read forward or backward
+        String test4 = "racecar";
+        String test5 = "cat";
+
+        assertTrue(palindrome.isPalindrome(test1));
+        assertTrue(palindrome.isPalindrome(test2));
+        assertFalse(palindrome.isPalindrome(test3));
+        assertTrue(palindrome.isPalindrome(test4));
+        assertFalse(palindrome.isPalindrome(test5));
+    }
 }
