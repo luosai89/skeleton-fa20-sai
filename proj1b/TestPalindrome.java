@@ -7,6 +7,7 @@ public class TestPalindrome {
     static Palindrome palindrome = new Palindrome();
     static CharacterComparator offbyOne = new OffByOne();
     static CharacterComparator cc1 = new OffByN(1);
+    static CharacterComparator cc2 = new OffByN(2);
 
     @Test
     public void testWordToDeque() {
@@ -32,6 +33,11 @@ public class TestPalindrome {
         String test7 = "%&";
         String test8 = "racecAr";
         String test9 = "m!o!o!m";
+        String test10 = "m!o!o!M";
+        String test11 = "  ";
+        String test12 = " ?";
+        String test13 = " 3ee3 ";
+        String test14 = "?2#e3E#2?";
 
         assertTrue(palindrome.isPalindrome(test1));
         assertTrue(palindrome.isPalindrome(test2));
@@ -42,6 +48,11 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome(test7));
         assertTrue(palindrome.isPalindrome(test8));
         assertTrue(palindrome.isPalindrome(test9));
+        assertTrue(palindrome.isPalindrome(test10));
+        assertTrue(palindrome.isPalindrome(test11));
+        assertFalse(palindrome.isPalindrome(test12));
+        assertTrue(palindrome.isPalindrome(test13));
+        assertTrue(palindrome.isPalindrome(test14));
     }
 
     @Test
@@ -77,7 +88,7 @@ public class TestPalindrome {
     }
 
     @Test
-    public void testIsPalindromeOffByN() {
+    public void testIsPalindromeOffByNOne() {
         // Any word of length 1 or 0 is a palindrome
         String test1 = "";
         String test2 = "a";
@@ -106,5 +117,27 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome(test9, cc1));
         assertTrue(palindrome.isPalindrome(test10, cc1));
         assertFalse(palindrome.isPalindrome(test11, cc1));
+    }
+
+    @Test
+    public void testIsPalindromeOffByNTwo() {
+        // Any word of length 1 or 0 is a palindrome
+        String test1 = "";
+        assertTrue(palindrome.isPalindrome(test1, cc2));
+        test1 = "a";
+        assertTrue(palindrome.isPalindrome(test1, cc2));
+        // If the argument word is null, the method should return false.
+        test1 = null;
+        assertFalse(palindrome.isPalindrome(test1, cc2));
+        test1 = "acac";
+        assertTrue(palindrome.isPalindrome(test1, cc2));
+        test1 = "abab";
+        assertFalse(palindrome.isPalindrome(test1, cc2));
+        test1 = "%&%&";
+        assertFalse(palindrome.isPalindrome(test1, cc2));
+        test1 = "Flake";
+        assertFalse(palindrome.isPalindrome(test1, cc2));
+        test1 = "%acac3";
+        assertFalse(palindrome.isPalindrome(test1, cc2));
     }
 }
