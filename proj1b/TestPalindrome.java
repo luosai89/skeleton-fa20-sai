@@ -36,7 +36,7 @@ public class TestPalindrome {
     }
 
     @Test
-    public void testIsPalindrome_WithOffByOne() {
+    public void testIsPalindrome_withOffByOne() {
         // Any word of length 1 or 0 is a palindrome
         String test1 = "";
         String test2 = "a";
