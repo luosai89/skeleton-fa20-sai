@@ -28,6 +28,8 @@ public class TestPalindrome {
         String test4 = "racecar";
         String test5 = "cat";
         String test6 = "rAceCar";
+        String test7 = "%&";
+        String test8 = "%%";
 
         assertTrue(palindrome.isPalindrome(test1));
         assertTrue(palindrome.isPalindrome(test2));
@@ -35,10 +37,12 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(test4));
         assertFalse(palindrome.isPalindrome(test5));
         assertTrue(palindrome.isPalindrome(test6));
+        assertFalse(palindrome.isPalindrome(test7));
+        assertTrue(palindrome.isPalindrome(test8));
     }
 
     @Test
-    public void testIsPalindrome_withOffByOne() {
+    public void testIsPalindromeOffByOne() {
         // Any word of length 1 or 0 is a palindrome
         String test1 = "";
         String test2 = "a";
@@ -50,6 +54,8 @@ public class TestPalindrome {
         String test6 = "moon";
 
         String test7 = "FlaKe";
+        String test8 = "%&";
+        String test9 = "%#";
 
         assertTrue(palindrome.isPalindrome(test1, offbyOne));
         assertTrue(palindrome.isPalindrome(test2, offbyOne));
@@ -58,5 +64,7 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome(test5, offbyOne));
         assertFalse(palindrome.isPalindrome(test6, offbyOne));
         assertTrue(palindrome.isPalindrome(test7, offbyOne));
+        assertTrue(palindrome.isPalindrome(test8, offbyOne));
+        assertFalse(palindrome.isPalindrome(test9, offbyOne));
     }
 }

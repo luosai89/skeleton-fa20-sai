@@ -9,7 +9,21 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word) {
-        return isPalindrome(word, new OffByN(0));
+        if (word == null) {
+            return false;
+        }
+        if (word.length() == 0 || word.length() == 1) {
+            return true;
+        }
+        Deque<Character> deque = wordToDeque(word);
+        while (deque.size() > 1) {
+            char first = Character.toLowerCase(deque.removeFirst());
+            char last = Character.toLowerCase(deque.removeLast());
+            if (first != last) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean isPalindrome(String word, CharacterComparator cc) {
