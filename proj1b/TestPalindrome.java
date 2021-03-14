@@ -27,16 +27,18 @@ public class TestPalindrome {
         // A palindrome is defined as a word that is the same whether it is read forward or backward
         String test4 = "racecar";
         String test5 = "cat";
+        String test6 = "raCecar";
 
         assertTrue(palindrome.isPalindrome(test1));
         assertTrue(palindrome.isPalindrome(test2));
         assertFalse(palindrome.isPalindrome(test3));
         assertTrue(palindrome.isPalindrome(test4));
         assertFalse(palindrome.isPalindrome(test5));
+        assertTrue(palindrome.isPalindrome(test6));
     }
 
     @Test
-    public void testIsPalindrome_WithOffByOne() {
+    public void testIsPalindromeWithOneOff() {
         // Any word of length 1 or 0 is a palindrome
         String test1 = "";
         String test2 = "a";
@@ -46,6 +48,7 @@ public class TestPalindrome {
         String test4 = "flake";
         String test5 = "cat";
         String test6 = "moon";
+        String test7 = "flaKe";
 
         assertTrue(palindrome.isPalindrome(test1, offbyOne));
         assertTrue(palindrome.isPalindrome(test2, offbyOne));
@@ -53,5 +56,6 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(test4, offbyOne));
         assertFalse(palindrome.isPalindrome(test5, offbyOne));
         assertFalse(palindrome.isPalindrome(test6, offbyOne));
+        assertTrue(palindrome.isPalindrome(test7, offbyOne));
     }
 }
