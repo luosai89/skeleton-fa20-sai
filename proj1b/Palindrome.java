@@ -31,7 +31,7 @@ public class Palindrome {
         if (word.length() == 0 || word.length() == 1) {
             return true;
         }
-        Deque<Character> deque = wordToDeque(word);
+        Deque<Character> deque = wordToDeque(word.toLowerCase());
         while (deque.size() > 1) {
             if (!cc.equalChars(deque.removeFirst(), deque.removeLast())) {
                 return false;

@@ -31,6 +31,7 @@ public class TestPalindrome {
         String test6 = "%%";
         String test7 = "%&";
         String test8 = "racecAr";
+        String test9 = "m!o!o!m";
 
         assertTrue(palindrome.isPalindrome(test1));
         assertTrue(palindrome.isPalindrome(test2));
@@ -40,6 +41,7 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(test6));
         assertFalse(palindrome.isPalindrome(test7));
         assertTrue(palindrome.isPalindrome(test8));
+        assertTrue(palindrome.isPalindrome(test9));
     }
 
     @Test
@@ -58,6 +60,9 @@ public class TestPalindrome {
         String test8 = "%&";
         String test9 = "%%";
 
+        String test10 = "%flakE&";
+        String test11 = "%flakE?";
+
         assertTrue(palindrome.isPalindrome(test1, offbyOne));
         assertTrue(palindrome.isPalindrome(test2, offbyOne));
         assertFalse(palindrome.isPalindrome(test3, offbyOne));
@@ -67,6 +72,8 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(test7, offbyOne));
         assertTrue(palindrome.isPalindrome(test8, offbyOne));
         assertFalse(palindrome.isPalindrome(test9, offbyOne));
+        assertTrue(palindrome.isPalindrome(test10, offbyOne));
+        assertFalse(palindrome.isPalindrome(test11, offbyOne));
     }
 
     @Test
@@ -85,6 +92,9 @@ public class TestPalindrome {
         String test8 = "%&";
         String test9 = "%%";
 
+        String test10 = "%flakE&";
+        String test11 = "%flakE?";
+
         assertTrue(palindrome.isPalindrome(test1, cc1));
         assertTrue(palindrome.isPalindrome(test2, cc1));
         assertFalse(palindrome.isPalindrome(test3, cc1));
@@ -94,5 +104,7 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(test7, cc1));
         assertTrue(palindrome.isPalindrome(test8, cc1));
         assertFalse(palindrome.isPalindrome(test9, cc1));
+        assertTrue(palindrome.isPalindrome(test10, cc1));
+        assertFalse(palindrome.isPalindrome(test11, cc1));
     }
 }
