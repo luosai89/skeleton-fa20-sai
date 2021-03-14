@@ -9,19 +9,7 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word) {
-        if (word == null) {
-            return false;
-        }
-        if (word.length() == 0 || word.length() == 1) {
-            return true;
-        }
-        Deque<Character> deque = wordToDeque(word);
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) {
-                return false;
-            }
-        }
-        return true;
+        return isPalindrome(word, new OffByN(0));
     }
 
     public boolean isPalindrome(String word, CharacterComparator cc) {
