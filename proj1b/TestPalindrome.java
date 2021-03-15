@@ -46,13 +46,13 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome(test5));
         assertTrue(palindrome.isPalindrome(test6));
         assertFalse(palindrome.isPalindrome(test7));
-        assertTrue(palindrome.isPalindrome(test8));
+        assertFalse(palindrome.isPalindrome(test8));
         assertTrue(palindrome.isPalindrome(test9));
-        assertTrue(palindrome.isPalindrome(test10));
+        assertFalse(palindrome.isPalindrome(test10));
         assertTrue(palindrome.isPalindrome(test11));
         assertFalse(palindrome.isPalindrome(test12));
         assertTrue(palindrome.isPalindrome(test13));
-        assertTrue(palindrome.isPalindrome(test14));
+        assertFalse(palindrome.isPalindrome(test14));
     }
 
     @Test
@@ -66,13 +66,13 @@ public class TestPalindrome {
         String test4 = "flake";
         String test5 = "cat";
         String test6 = "moon";
-        String test7 = "Flake";
+        String test7 = "flake";
 
         String test8 = "%&";
         String test9 = "%%";
 
-        String test10 = "%flakE&";
-        String test11 = "%flakE?";
+        String test10 = "%flake&";
+        String test11 = "%flake?";
 
         assertTrue(palindrome.isPalindrome(test1, offbyOne));
         assertTrue(palindrome.isPalindrome(test2, offbyOne));
@@ -112,10 +112,10 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(test4, cc1));
         assertFalse(palindrome.isPalindrome(test5, cc1));
         assertFalse(palindrome.isPalindrome(test6, cc1));
-        assertTrue(palindrome.isPalindrome(test7, cc1));
+        assertFalse(palindrome.isPalindrome(test7, cc1));
         assertTrue(palindrome.isPalindrome(test8, cc1));
         assertFalse(palindrome.isPalindrome(test9, cc1));
-        assertTrue(palindrome.isPalindrome(test10, cc1));
+        assertFalse(palindrome.isPalindrome(test10, cc1));
         assertFalse(palindrome.isPalindrome(test11, cc1));
     }
 
